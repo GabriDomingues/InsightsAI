@@ -6,8 +6,6 @@ genai.configure(api_key="AIzaSyBk4hjHMedwFJTgoW7ja8ZT-YoAvLRuXDE")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
-# df = pd.read_csv('uploads/acidentesJan2024_todas_causas_tipos.csv', encoding='latin-1', sep=";").to_string()
-# df = pd.read_excel('./uploads/acidentesJan2024_todas_causas_tipos_ex.xlsx').to_string()
 def gerar_insights(modelo, prompt, dataframe):
     # Converter os dados do DataFrame para string (limitado para não exceder tokens)
     dados_csv = dataframe.head(100).to_string(index=False)
@@ -37,13 +35,7 @@ if "dataframe" in st.session_state:
 
     # Área de texto para o prompt
     txt = st.text_area("Digite sua solicitação de insights", placeholder="Exemplo: Quantos registros existem?")
-    df = st.session_state.dataframe
-    # Pré-processamento: Exemplo de contagem de homens e mulheres
-    homens = df[df['sexo'].str.lower() == 'Masculino'].shape[0]
-    mulheres = df[df['sexo'].str.lower() == 'Feminino'].shape[0]
 
-    # Construir uma resposta consistente
-    dados_processados = f"Número de homens: {homens}\nNúmero de mulheres: {mulheres}"
     # Botão para gerar insights
     if st.button("Gerar Insights"):
         if txt:
